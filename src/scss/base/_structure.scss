@@ -1,0 +1,28 @@
+/* =Structure
+-------------------------------------------------------------------- */
+
+$font-size: #{($base-font-size/16px)*1em};
+$line-height-integer: #{$line-height-ratio};
+
+body {
+    position: relative;
+    //overflow-y: scroll;
+    margin: 0;
+    color: $base-font-color;
+    background-color: $bg-white;
+    font: normal normal $font-size/$line-height-integer $base-font-family;
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+::-moz-selection {
+    background-color: $selection-background;
+    color: $selection-color;
+}
+
+::selection {
+    background-color: $selection-background;
+    color: $selection-color;
+}

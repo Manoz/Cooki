@@ -1,0 +1,29 @@
+{
+  "name": "html5-starter",
+  "version": "1.0.0",
+  "description": "My custom html5 starter fueled with gulp, sass and C8H10N4O2",
+  "keywords": [ "css", "js", "scss", "sass", "mobile-first", "responsive", "front-end", "framework", "web" ],
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/Manoz/html5-starter/blob/master/LICENSE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/html5-starter/html5-starter.git"
+  },
+  "bugs": "https://github.com/Manoz/html5-starter/issues",
+  "homepage": "http://k-legrand.fr",
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-load-plugins": "^0.6.0",
+    "gulp-util": "^3.0.1",
+    "gulp-plumber": "^0.6.5",
+    "gulp-sass": "^0.7.3",
+    "gulp-size": "^1.1.0",
+    "gulp-autoprefixer": "^0.0.10",
+    "gulp-rename": "^1.2.0",
+    "jshint-stylish": "^0.4.0",
+    "gulp-jshint": "^1.8.4",
+    "gulp-uglify": "^1.0.1"
+  }
+}

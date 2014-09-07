@@ -1,0 +1,15 @@
+@if $use-clearfix == true {
+
+/* =Clearfix
+-------------------------------------------------------------------- */
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {clear: both;}
+.clear {clear: both;}
+
+} //End @if $use-clearfix

@@ -1,0 +1,36 @@
+// Generate rem font size and line height with the magic ratio
+// # Use: @include font-size(24px);
+@mixin font-size($font-size, $line-height: true) {
+    $rem-size: ($font-size / $base-font-size) * 1rem;
+    $line-height-size: ceil($font-size / $base-line-height) * ($base-line-height / $font-size);
+
+    font-size: $font-size;
+    font-size: $rem-size;
+    line-height: $line-height-size;
+
+}
+
+// CSS3 Filters
+// # Use:          @include filter(FILTER_NAME, FILTER_VALUE);
+// Can I Use?      http://caniuse.com/#feat=css-filters
+// Documentation:  https://developer.mozilla.org/en-US/docs/Web/CSS/filter
+@mixin filter($filter-type,$filter-amount) {
+
+    -webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+    -moz-filter: $filter-type+unquote('(#{$filter-amount})');
+    -ms-filter: $filter-type+unquote('(#{$filter-amount})');
+    -o-filter: $filter-type+unquote('(#{$filter-amount})');
+    filter: $filter-type+unquote('(#{$filter-amount})');
+
+}
+
+// CSS3 column-* property.
+// # Use:          @include column-text(3, 25px);
+// Can I Use?      http://caniuse.com/#search=column-
+// Documentation:  http://www.w3schools.com/cssref/css3_pr_column-count.asp
+@mixin column-text($column-count, $column-gap) {
+
+    column-count: $column-count;
+    column-gap: $column-gap;
+
+}

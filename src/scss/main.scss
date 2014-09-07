@@ -1,0 +1,17 @@
+//
+// Main SASS file
+// We just import all .scss files
+//
+
+// Base styles
+@import "defaults";
+@import "base/mixins";
+@import "helpers/normalize";
+
+// Your website styles
+@import "base/structure";
+@import "base/typography";
+
+// Helpers
+@import "helpers/clearfix";
+@import "helpers/helpers";
