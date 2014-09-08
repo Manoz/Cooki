@@ -1,4 +1,8 @@
-html5-starter
-=============
+Cooki - Another Yummy HTML5 Starter
+===================================
 
-My custom html5 starter fueled with gulp, sass and C8H10N4O2
+**Cooki** is my own html5 starter kit.
+**Cooki** isn't ready yet. Try it but don't use it in production environment
+**Cooki** can't be eaten
+
+To be continued...
