@@ -1,5 +1,5 @@
 /**
- * Gulpfile.js - Html5 Starter builder
+ * Gulpfile.js - My Cooki builder
  *
  * (c) 2014 Contributors.
  * Released under the MIT license.
@@ -9,7 +9,7 @@
 
 
 /**
- * Dependencies
+ * Load Dependencies
  */
 var gulp = require('gulp');
 var plug = require('gulp-load-plugins')();
@@ -30,20 +30,34 @@ var AUTOPREFIXER = [
     'ie_mob >= 9'
 ];
 
+var HEADER = [
+  '/*!',
+  ' * <%= pkg.name %> v<%= pkg.version %>',
+  ' * <%= pkg.homepage %>',
+  ' *',
+  ' * Copyright <%= date %> Contributors',
+  ' * Released under the <%= pkg.license.type %> license',
+  ' * <%= pkg.license.url %>',
+  ' */',
+  ''
+].join('\n');
+var pkg = require('./package');
+var HEADER_SETTINGS = { pkg: pkg, date: new Date().getFullYear() };
+
 
 /**
  * CSS Task
- * @todo Move minify and .rename in min:css task
  */
 gulp.task('dist:css', function () {
 
-    return gulp.src('src/scss/main.scss')
-        .pipe(plug.plumber())
-        .pipe(plug.sass({
-            outputStyle: 'compressed'   // 'nested' or 'compressed'
+    return gulp.src('src/scss/cooki.scss')
+        .pipe(plug.rubySass({
+            style: 'expanded',
+            loadPath: ['scss']
         }))
+        .on('error', function (e) { console.error(e.message) })
         .pipe(plug.autoprefixer(AUTOPREFIXER))
-        .pipe(plug.rename({ suffix: '.min' }))
+        .pipe(plug.header(HEADER, HEADER_SETTINGS))
         .pipe(gulp.dest('dist/css'))
         .pipe(plug.size({ title: 'dist:css' }))
 
@@ -56,7 +70,7 @@ gulp.task('dist:css', function () {
 gulp.task('dist:js', function() {
 
     return gulp.src('src/js/*.js')
-        .pipe(plug.plumber())
+        .pipe(plug.header(HEADER, HEADER_SETTINGS))
         .pipe(gulp.dest('dist/js'))
         .pipe(plug.size({ title: 'dist:js' }))
 
@@ -70,10 +84,19 @@ gulp.task('dist', ['dist:css', 'dist:js']);
  * Minify and concat tasks
  */
 
-// JS
-gulp.task('min:js', function () {
+// CSS
+gulp.task('minify:css', function () {
+    return gulp.src('dist/css/cooki.css')
+        .pipe(plug.csso())
+        .pipe(plug.rename({ suffix: '.min' }))
+        .pipe(gulp.dest('dist/css'))
+        .pipe(plug.size({ title: 'dist:min:css' }))
+});
 
-    return gulp.src('src/js/main.js')
+// JS
+gulp.task('minify:js', function () {
+
+    return gulp.src('dist/js/cooki.js')
         .pipe(plug.uglify())
         .pipe(plug.rename({ suffix: '.min' }))
         .pipe(gulp.dest('dist/js'))
@@ -82,7 +105,7 @@ gulp.task('min:js', function () {
 });
 
 // Run our JS and CSS minify tasks
-gulp.task('min', ['min:js']);
+gulp.task('minify', ['minify:css', 'minify:js']);
 
 
 /**
@@ -91,10 +114,10 @@ gulp.task('min', ['min:js']);
 gulp.task('lint:js', function () {
 
     return gulp.src('src/js/*.js')
-        .pipe(plug.plumber())
+        .pipe(plug.cached('lint'))
         .pipe(plug.jshint())
-        .pipe(plug.jshint.reporter(plug.stylish))
-        //.pipe(plug.jshint.reporter('fail'))
+        .pipe(plug.jshint.reporter('jshint-stylish'))
+        .pipe(plug.jshint.reporter('fail'))
 
 });
 
@@ -105,7 +128,7 @@ gulp.task('lint', ['lint:js']);
 /**
  * Create our default task and watch for changes
  */
-gulp.task('default', ['dist', 'lint', 'min'], function() {
+gulp.task('default', ['lint', 'dist', 'minify'], function() {
 
     gulp.watch('src/scss/**/*.scss', ['dist:css']);
     gulp.watch('src/js/**/*.js', ['lint:js', 'dist:js']);
