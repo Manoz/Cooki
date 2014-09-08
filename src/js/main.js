@@ -1,3 +1,0 @@
-/**
- * # Your website scripts below
- */
